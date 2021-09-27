@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EmpMapper2">
+
+    <!--
+
+    如果参数是单个基本数据类型，{}里面可以随便写，见名知意即可
+    ${}代表Mybatis底层使用Statment语句对象，参数是以字符串拼接的形式设置
+    #{}preparedStatment语句对象，
+    -->
+    <select id="findByEmpno" resultType="emp" parameterType="int">
+        select * from emp where empno = #{empno}
+    </select>
+    <!--
+    大于小于号最好要转意
+    #{}写的是map集合中的键
+    -->
+    <select id="findByDeptnoAndSal" resultType="emp" parameterType="map">
+        select * from emp where deptno = #{deptno} and sal &gt; #{sal}
+    </select>
+
+    <select id="findEmpByDeptnoAndSal2" resultType="emp" parameterType="emp">
+        select * from emp where deptno = #{deptno} and sal &gt;= #{sal}
+    </select>
+
+
+
+</mapper>

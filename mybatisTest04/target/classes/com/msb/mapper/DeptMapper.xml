@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msb.mapper.DeptMapper">
+
+    <!--<resultMap id="empJoinDept" type="emp">
+        &lt;!&ndash;设置emo本身的8个属性的映射关系&ndash;&gt;
+        <id property="empno" column="empno"></id>
+        <result property="ename" column="ename"></result>
+        <result property="job" column="job"></result>
+        <result property="sal" column="sal"></result>
+        <result property="hiredate" column="hiredate"></result>
+        <result property="mgr" column="mgr"></result>
+        <result property="comm" column="comm"></result>
+        <result property="deptno" column="deptno"></result>
+
+        &lt;!&ndash;封装一对一信息关系标签
+        javaType代表用哪个类的对象给该属性赋值&ndash;&gt;
+        <association property="dept" javaType="dept">
+            <id column="deptno" property="deptno"></id>
+            <result column="dname" property="dname"></result>
+            <result column="loc" property="loc"></result>
+        </association>
+    </resultMap>
+
+    <select id="findEmpJoinDeptByEmpno" resultMap="empJoinDept">
+        select * from
+        emp e
+        left join dept  d
+        on e.deptno =d.deptno
+        where empno = #{empno}
+    </select>-->
+
+    <!--<resultMap id="empResultMap" type="emp">
+        &lt;!&ndash; &ndash;&gt;
+        <result column="empno" property="empno"></result>
+        &lt;!&ndash;&ndash;&gt;
+        <result column="ename" property="name"></result>
+        <result column="job" property="job"></result>
+        <result column="mgr" property="mgr"></result>
+        <result column="hiredate" property="hiredate"></result>
+        <result column="sal" property="sal"></result>
+        <result column="comm" property="comm"></result>
+        <result column="deptno" property="deptno"></result>
+
+    </resultMap>
+    <select id="findAll" resultMap="empResultMap">
+        select * from emp
+    </select>-->
+
+    <!--Dept findDeptJoinEmpsByDeptno(int deptno);-->
+    <resultMap id="deptJoinEmps" type="dept">
+        <id column="deptno" property="deptno"></id>
+        <result column="dname" property="dname"></result>
+        <result column="loc" property="loc"></result>
+        //
+        <collection property="empList" ofType="emp">
+            <!--设置emo本身的8个属性的映射关系-->
+            <id property="empno" column="empno"></id>
+            <result property="ename" column="ename"></result>
+            <result property="job" column="job"></result>
+            <result property="sal" column="sal"></result>
+            <result property="hiredate" column="hiredate"></result>
+            <result property="mgr" column="mgr"></result>
+            <result property="comm" column="comm"></result>
+            <result property="deptno" column="deptno"></result>
+        </collection>
+    </resultMap>
+    <select id="findDeptJoinEmpsByDeptno" resultMap="deptJoinEmps">
+        select * from dept  d left join emp e
+        on d.deptno = e.deptno  where d.deptno = #{deptno}
+    </select>
+
+
+</mapper>
